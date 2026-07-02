@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>打开 Vibe Coding Daily</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family:
+          "Microsoft YaHei",
+          "PingFang SC",
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: #0f172a;
+        background: #f8fafc;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+      }
+
+      main {
+        width: min(520px, calc(100vw - 32px));
+        border: 1px solid #dbe3ef;
+        border-radius: 12px;
+        background: #ffffff;
+        padding: 28px;
+        box-shadow: 0 18px 45px rgb(15 23 42 / 8%);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 26px;
+        line-height: 1.25;
+      }
+
+      p {
+        margin: 14px 0 0;
+        color: #475569;
+        line-height: 1.75;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 40px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 22px;
+        border: 1px solid #a7f3d0;
+        border-radius: 8px;
+        background: #ecfdf5;
+        padding: 0 14px;
+        color: #065f46;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .button:hover {
+        background: #d1fae5;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Vibe Coding Daily</h1>
+      <p id="status">正在检查本地网站是否已启动...</p>
+      <p>如果没有自动进入，请先双击 <strong>00-start-site.bat</strong> 启动服务。</p>
+      <a class="button" href="http://127.0.0.1:3000/">立即进入网站</a>
+    </main>
+    <script>
+      const websiteUrl = "http://127.0.0.1:3000/";
+      const status = document.getElementById("status");
+      const probe = new Image();
+      let finished = false;
+
+      function showStartHint() {
+        if (finished) return;
+        finished = true;
+        status.textContent = "本地服务尚未启动，请先运行 00-start-site.bat。";
+      }
+
+      probe.onload = () => {
+        finished = true;
+        status.textContent = "网站已启动，正在进入...";
+        window.location.replace(websiteUrl);
+      };
+      probe.onerror = showStartHint;
+      probe.src = `${websiteUrl}favicon.ico?entry=${Date.now()}`;
+      window.setTimeout(showStartHint, 3000);
+    </script>
+  </body>
+</html>

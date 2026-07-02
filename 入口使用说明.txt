@@ -1,0 +1,18 @@
+推荐入口：
+1. 第一次打开或服务没有启动时，双击 00-start-site.bat。
+2. 服务已启动时，可以直接双击“打开 Vibe Coding Daily.html”。
+
+00-start-site.bat 会：
+1. 检查 3000 端口有没有服务。
+2. 如果没有，就在后台自动启动网站服务。
+3. 等 http://127.0.0.1:3000/ 真正可访问后，再用 Edge 新窗口打开网站。
+
+这次入口会直接调用：
+C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+
+并使用一个干净的临时 Edge 配置，避免继续打开 C:/Users/.../INetCache/... 缓存文件。
+
+其他几个带“启动”或“打开”字样的入口现在也会先检查并启动服务。
+
+不要打开地址栏里是 C:/Users/.../INetCache/... 的页面。那是 Windows 缓存文件，不是网站。
+也不要直接打开 .next 文件夹里的 HTML 缓存文件。
