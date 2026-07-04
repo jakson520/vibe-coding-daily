@@ -4,6 +4,7 @@ import { DailyReportView } from "@/components/DailyReportView";
 import { Filters } from "@/components/Filters";
 import { Header } from "@/components/Header";
 import { PersonalizedUpdatePanel } from "@/components/PersonalizedUpdatePanel";
+import { PublicDemo } from "@/components/PublicDemo";
 import { RunJobButton } from "@/components/RunJobButton";
 import { prisma } from "@/lib/prisma";
 
@@ -59,6 +60,10 @@ async function getReport(date?: string) {
 }
 
 export default async function Home({ searchParams }: HomeProps) {
+  if (process.env.VERCEL === "1") {
+    return <PublicDemo />;
+  }
+
   const params = await searchParams;
   const [report, tags, sourceCount, articleCount, favoriteCount] = await Promise.all([
     getReport(params.date),
